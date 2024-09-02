@@ -60,9 +60,10 @@ app.listen(PORT,async()=>{
 
 
     const tweetRepo=new TweetRepository();
-    console.log(
-        await tweetRepo.get('66d41065d110567df80758e0')
+    const tweet= await tweetRepo.create({
+        content:'user email is creating with hooks'
+    });
+    console.log(tweet);
 
-    );
 
 });

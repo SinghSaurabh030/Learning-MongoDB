@@ -32,7 +32,9 @@ class TweetRepository{
             //without populate id only array of id will be visible
             //here we dont have direct association we have made array of comments therfore we have populate({path:'comments'})
             //for direct association populate('comments') will work
-            const tweet=await Tweet.findById(id).populate({path:'comments'});
+
+            //lean() cause returning of js object instead of mongoose object which will not have getters,setters,save()
+            const tweet=await Tweet.findById(id).populate({path:'comments'}).lean();
             return  tweet;
         } catch (error) {
             console.log(error);
@@ -46,6 +48,22 @@ class TweetRepository{
             console.log(error);
         }
     }
+
+    /*PAGINATION IN MONGO */
+    /*
+    offset discribe how many documents to leave before starting
+    limit describes how many documents to show;
+     */
+    async getAll(offset,limit){
+        try{
+            const tweet=await Tweet.find().skip(offset).limit(limit);
+            return tweet;
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    
 
 }
 module.exports=TweetRepository;

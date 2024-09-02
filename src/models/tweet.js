@@ -19,7 +19,17 @@ const tweetSchema=new mongoose.Schema({
     ]
 },{timestamps:true});
 
+tweetSchema.virtual('CommentWithOwner').get(function(){
+    return `${this.content} created by ${this.userEmail}`;
+});
 
+tweetSchema.pre('save',
+    function(next){
+        console.log('inside hook');
+        this.userEmail='new@user';
+        next();
+    }
+)
 //creating actual model from bluprint
 const Tweet=mongoose.model('Tweet',tweetSchema);
 module.exports=Tweet;

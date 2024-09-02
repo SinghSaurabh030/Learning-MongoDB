@@ -11,6 +11,7 @@ const CommentSchema=new mongoose.Schema({
 },{timestamps:true});
 
 
+
 //creating actual model from bluprint
 const Comment=mongoose.model('Comment',CommentSchema);
 module.exports=Comment;
